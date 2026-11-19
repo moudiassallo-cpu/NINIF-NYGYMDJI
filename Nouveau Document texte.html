@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fff8f5">
+    <meta name="description" content="Une jolie surprise d'anniversaire pour Soxna Hawa, qui fête ses 19 ans le 20 novembre 2026.">
+    <title>Joyeux anniversaire Soxna Hawa !</title>
+    <!-- Police chaleureuse ; le site reste lisible si Google Fonts est indisponible. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --cream: #fff8f5;
+            --paper: #fffdfb;
+            --rose: #c94f70;
+            --rose-dark: #9e3454;
+            --rose-soft: #f8dce2;
+            --gold: #c49a52;
+            --ink: #3d2930;
+            --muted: #806d72;
+            --serif: "Playfair Display", Georgia, serif;
+            --sans: "DM Sans", Arial, sans-serif;
+        }
+        
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--cream);
+            font-family: var(--sans);
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        body.modal-open {
+            overflow: hidden;
+        }
+        
+        button {
+            font: inherit;
+        }
+        
+        a {
+            color: inherit;
+        }
+        
+        .hero {
+            position: relative;
+            display: grid;
+            min-height: 100svh;
+            place-items: center;
+            overflow: hidden;
+            padding: 5rem 1.25rem;
+            isolation: isolate;
+            text-align: center;
+            background: radial-gradient(ellipse at 50% 100%, rgba(255, 218, 223, .88), transparent 55%), linear-gradient(145deg, #fffaf6 5%, #fff0ef 52%, #f9e4e6 100%);
+        }
+        
+        .hero::before,
+        .hero::after {
+            position: absolute;
+            z-index: -1;
+            width: min(72vw, 35rem);
+            aspect-ratio: 1;
+            border: 1px solid rgba(196, 154, 82, .25);
+            border-radius: 50%;
+            content: "";
+            pointer-events: none;
+        }
+        
+        .hero::before {
+            transform: scale(.8);
+        }
+        
+        .hero::after {
+            transform: scale(1.04);
+        }
+        
+        #confetti-canvas {
+            position: absolute;
+            z-index: -1;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            width: min(100%, 48rem);
+            animation: rise-in .9s ease both;
+        }
+        
+        .eyebrow,
+        .section-kicker {
+            color: var(--rose-dark);
+            font-size: .73rem;
+            font-weight: 700;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+        }
+        
+        .eyebrow {
+            margin: 0 0 1.4rem;
+        }
+        
+        .hero h1 {
+            margin: 0 auto;
+            font-family: var(--serif);
+            font-size: clamp(3.15rem, 12vw, 7.6rem);
+            font-weight: 500;
+            letter-spacing: -.055em;
+            line-height: 1.03;
+        }
+        
+        .hero h1 span {
+            display: block;
+            color: var(--rose);
+        }
+        
+        .hero-subtitle {
+            margin: 1.35rem 0 0;
+            color: var(--muted);
+            font-size: clamp(.98rem, 3vw, 1.12rem);
+            letter-spacing: .04em;
+        }
+        
+        .hero-subtitle strong {
+            color: var(--ink);
+            font-weight: 600;
+        }
+        
+        .passion-note {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            margin: 1rem 0 0;
+            padding: .5rem .85rem;
+            border: 1px solid rgba(196, 154, 82, .35);
+            border-radius: 999px;
+            color: var(--rose-dark);
+            background: rgba(255, 255, 255, .55);
+            font-size: .82rem;
+            font-weight: 600;
+        }
+        
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: .75rem;
+            margin-top: 2rem;
+        }
+        
+        .button {
+            display: inline-flex;
+            min-height: 3.1rem;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            padding: .8rem 1.3rem;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: .92rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .button:focus-visible,
+        .photo-card:focus-visible,
+        .lightbox-close:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 4px;
+        }
+        
+        .button-primary {
+            color: white;
+            background: var(--rose);
+            box-shadow: 0 8px 22px rgba(158, 52, 84, .2);
+        }
+        
+        .button-primary:hover {
+            background: var(--rose-dark);
+            box-shadow: 0 11px 26px rgba(158, 52, 84, .27);
+        }
+        
+        .button-quiet {
+            color: var(--rose-dark);
+            border-color: rgba(158, 52, 84, .22);
+            background: rgba(255, 255, 255, .55);
+        }
+        
+        .scroll-cue {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            color: var(--muted);
+            font-size: .7rem;
+            letter-spacing: .14em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transform: translateX(-50%);
+        }
+        
+        .scroll-cue::after {
+            display: block;
+            width: 1px;
+            height: 2rem;
+            margin: .55rem auto 0;
+            background: var(--gold);
+            content: "";
+        }
+        
+        .section {
+            padding: 5.2rem 1.25rem;
+        }
+        
+        .section-inner {
+            width: min(100%, 68rem);
+            margin: 0 auto;
+        }
+        
+        .section-heading {
+            max-width: 39rem;
+            margin: 0 auto 2.4rem;
+            text-align: center;
+        }
+        
+        .section-kicker {
+            margin: 0 0 .65rem;
+        }
+        
+        .section-heading h2,
+        .message-copy h2 {
+            margin: 0;
+            font-family: var(--serif);
+            font-size: clamp(2.2rem, 8vw, 3.55rem);
+            font-weight: 500;
+            letter-spacing: -.035em;
+            line-height: 1.12;
+        }
+        
+        .section-heading>p:last-child {
+            margin: .8rem 0 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        
+        .gallery-section {
+            background: var(--paper);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: .8rem;
+        }
+        
+        .photo-card {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            min-height: 10.5rem;
+            aspect-ratio: 1 / 1.08;
+            padding: 0;
+            border: 0;
+            border-radius: 1rem;
+            background: linear-gradient(145deg, #f8dce2, #f8ead7 70%, #f3d9d4);
+            cursor: zoom-in;
+            text-align: left;
+        }
+        
+        .photo-card:nth-child(3n + 2) {
+            background: linear-gradient(145deg, #f3e5d6, #f6dce1 72%, #f7e9d8);
+        }
+        
+        .photo-card:nth-child(3n) {
+            background: linear-gradient(145deg, #f7e5df, #eedde8 72%, #f8e6d5);
+        }
+        
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .55s cubic-bezier(.2, .7, .2, 1);
+        }
+        
+        .photo-card:hover img {
+            transform: scale(1.055);
+        }
+        
+        .photo-card::after {
+            position: absolute;
+            inset: 35% 0 0;
+            background: linear-gradient(transparent, rgba(47, 28, 35, .58));
+            content: "";
+            pointer-events: none;
+        }
+        
+        .photo-caption {
+            position: absolute;
+            z-index: 1;
+            right: .8rem;
+            bottom: .75rem;
+            left: .8rem;
+            color: white;
+            font-family: var(--serif);
+            font-size: 1rem;
+        }
+        
+        .photo-placeholder {
+            position: absolute;
+            inset: 0;
+            display: none;
+            place-items: center;
+            padding: 1rem;
+            color: rgba(112, 62, 76, .76);
+            text-align: center;
+        }
+        
+        .photo-card.is-empty .photo-placeholder {
+            display: grid;
+        }
+        
+        .photo-card.is-empty::after {
+            display: none;
+        }
+        
+        .placeholder-inner {
+            display: grid;
+            justify-items: center;
+            gap: .35rem;
+        }
+        
+        .placeholder-icon {
+            color: var(--rose);
+            font-size: 1.8rem;
+        }
+        
+        .placeholder-inner strong {
+            font-family: var(--serif);
+            font-size: 1.02rem;
+            font-weight: 500;
+        }
+        
+        .placeholder-inner small {
+            max-width: 10rem;
+            font-size: .67rem;
+            line-height: 1.45;
+        }
+        
+        .message-section {
+            position: relative;
+            overflow: hidden;
+            background: #fae9e9;
+        }
+        
+        .message-section::before {
+            position: absolute;
+            top: -4rem;
+            right: -5rem;
+            width: 14rem;
+            height: 14rem;
+            border: 1px solid rgba(196, 154, 82, .35);
+            border-radius: 50%;
+            content: "";
+        }
+        
+        .message-card {
+            position: relative;
+            width: min(100%, 48rem);
+            margin: 0 auto;
+            padding: clamp(1.6rem, 6vw, 3.4rem);
+            border: 1px solid rgba(196, 154, 82, .25);
+            border-radius: 1.5rem;
+            background: rgba(255, 253, 251, .78);
+            box-shadow: 0 20px 60px rgba(98, 49, 62, .06);
+            text-align: center;
+        }
+        
+        .message-card .section-kicker {
+            margin: 0 0 .8rem;
+        }
+        
+        .message-card h2 {
+            margin: 0;
+            font-family: var(--serif);
+            font-size: clamp(2.15rem, 8vw, 3.3rem);
+            font-weight: 500;
+            letter-spacing: -.035em;
+        }
+        
+        .message-text {
+            margin: 1.25rem auto 0;
+            color: #66535a;
+            font-size: 1rem;
+            line-height: 1.9;
+            white-space: pre-line;
+        }
+        
+        .message-signoff {
+            margin: 1.5rem 0 0;
+            color: var(--rose-dark);
+            font-family: var(--serif);
+            font-size: 1.35rem;
+            font-style: italic;
+        }
+        
+        .celebration-section {
+            padding-top: 4.6rem;
+            padding-bottom: 4.8rem;
+            text-align: center;
+            background: var(--cream);
+        }
+        
+        .celebration-section .section-heading {
+            margin-bottom: 1.6rem;
+        }
+        
+        .surprise-note {
+            min-height: 1.5rem;
+            margin: .9rem 0 0;
+            color: var(--rose-dark);
+            font-size: .9rem;
+        }
+        
+        .footer {
+            padding: 1.4rem 1rem;
+            color: #765d65;
+            background: #f4dfdf;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin: 0;
+            font-size: .84rem;
+        }
+        
+        .footer span {
+            color: var(--rose);
+        }
+        
+        .lightbox {
+            position: fixed;
+            z-index: 20;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            padding: 1.25rem;
+            background: rgba(36, 22, 28, .9);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .22s ease, visibility .22s ease;
+        }
+        
+        .lightbox.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .lightbox figure {
+            position: relative;
+            display: grid;
+            max-width: min(100%, 66rem);
+            max-height: 88svh;
+            justify-items: center;
+            margin: 0;
+        }
+        
+        .lightbox img {
+            display: block;
+            max-width: 100%;
+            max-height: 78svh;
+            border-radius: .7rem;
+            object-fit: contain;
+        }
+        
+        .lightbox figcaption {
+            margin-top: .8rem;
+            color: white;
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: max(1rem, env(safe-area-inset-top));
+            right: max(1rem, env(safe-area-inset-right));
+            display: grid;
+            width: 2.8rem;
+            height: 2.8rem;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, .35);
+            border-radius: 50%;
+            color: white;
+            background: rgba(255, 255, 255, .12);
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        .lightbox-placeholder {
+            display: none;
+            width: min(80vw, 28rem);
+            aspect-ratio: 1;
+            place-items: center;
+            border-radius: .7rem;
+            color: white;
+            background: linear-gradient(145deg, #b85c76, #d5a974);
+            text-align: center;
+        }
+        
+        .lightbox-placeholder.is-visible {
+            display: grid;
+        }
+        
+        .lightbox-placeholder span {
+            font-size: 3rem;
+        }
+        
+        .lightbox-placeholder p {
+            margin: .3rem 1rem;
+        }
+        
+        .floating-celebration {
+            position: fixed;
+            z-index: 10;
+            bottom: -3rem;
+            pointer-events: none;
+            animation: float-up 4.4s ease-in forwards;
+            filter: drop-shadow(0 4px 5px rgba(70, 32, 45, .12));
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+        
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @keyframes rise-in {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float-up {
+            to {
+                opacity: 0;
+                transform: translateY(-115vh) rotate(16deg);
+            }
+        }
+        
+        @media (min-width: 640px) {
+            .section {
+                padding: 6.5rem 2rem;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 1rem;
+            }
+            .photo-card {
+                aspect-ratio: 1 / 1;
+                border-radius: 1.15rem;
+            }
+            .photo-caption {
+                right: 1rem;
+                bottom: 1rem;
+                left: 1rem;
+                font-size: 1.15rem;
+            }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="hero" id="accueil" aria-labelledby="hero-title">
+            <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+            <div class="hero-content">
+                <p class="eyebrow">Une journée rien qu’à toi</p>
+                <h1 id="hero-title">Joyeux anniversaire <span>Soxna Hawa</span> 🎂</h1>
+                <p class="hero-subtitle"><strong>19 ans</strong> de lumière · 20 novembre 2026</p>
+                <p class="passion-note">Passionnée de BMW <span aria-hidden="true">🏁</span></p>
+                <div class="hero-actions">
+                    <a class="button button-primary" href="#message">Lire ton message <span aria-hidden="true">↓</span></a>
+                    <button class="button button-quiet" type="button" data-surprise>Une surprise ✨</button>
+                </div>
+            </div>
+            <a class="scroll-cue" href="#souvenirs">Défiler</a>
+        </section>
+        <section class="section gallery-section" id="souvenirs" aria-labelledby="gallery-title">
+            <div class="section-inner">
+                <header class="section-heading reveal">
+                    <p class="section-kicker">Petits instants, grands souvenirs</p>
+                    <h2 id="gallery-title">Vos photos durant cette année</h2>
+                    <p>Quelques beaux souvenirs </p>
+                </header>
+                <div class="gallery-grid">
+                    <!-- Remplace photo-1.jpg à photo-6.jpg par tes photos dans le dossier images/. -->
+                    <button class="photo-card reveal" type="button" data-photo="images/photo_2026-11-19_22-54-05.jpg" data-caption="Un souvenir précieux" aria-label="Agrandir la photo : Un souvenir précieux"><img src="images/photo_2026-11-19_22-54-05.jpg" alt="Soxna Hawa — un souvenir précieux" loading="lazy"><span class="photo-placeholder" aria-hidden="true"><span class="placeholder-inner"><span class="placeholder-icon">📸</span><strong>Un souvenir précieux</strong><small>Photo indisponible</small></span></span><span class="photo-caption">Un souvenir précieux</span></button>
+                    <button class="photo-card reveal" type="button" data-photo="images/photo_2026-11-19_22-54-10.jpg" data-caption="Ton plus beau sourire" aria-label="Agrandir la photo : Ton plus beau sourire"><img src="images/photo_2026-11-19_22-54-10.jpg" alt="Le beau sourire de Soxna Hawa" loading="lazy"><span class="photo-placeholder" aria-hidden="true"><span class="placeholder-inner"><span class="placeholder-icon">📸</span><strong>Ton plus beau sourire</strong><small>Photo indisponible</small></span></span><span class="photo-caption">Ton plus beau sourire</span></button>
+                    <button class="photo-card reveal" type="button" data-photo="images/photo_2026-11-19_22-54-13.jpg" data-caption="Un moment de bonheur" aria-label="Agrandir la photo : Un moment de bonheur"><img src="images/photo_2026-11-19_22-54-13.jpg" alt="Un moment de bonheur avec Soxna Hawa" loading="lazy"><span class="photo-placeholder" aria-hidden="true"><span class="placeholder-inner"><span class="placeholder-icon">📸</span><strong>Un moment de bonheur</strong><small>Photo indisponible</small></span></span><span class="photo-caption">Un moment de bonheur</span></button>
+                    <button class="photo-card reveal" type="button" data-photo="images/photo_2026-11-19_22-54-16.jpg" data-caption="Que de belles choses" aria-label="Agrandir la photo : Que de belles choses"><img src="images/photo_2026-11-19_22-54-16.jpg" alt="Un joli souvenir de Soxna Hawa" loading="lazy"><span class="photo-placeholder" aria-hidden="true"><span class="placeholder-inner"><span class="placeholder-icon">📸</span><strong>Que de belles choses</strong><small>Photo indisponible</small></span></span><span class="photo-caption">Que de belles choses</span></button>
+                    <button class="photo-card reveal" type="button" data-photo="images/photo_2026-11-19_22-54-18.jpg" data-caption="Toujours entourée de tes amis" aria-label="Agrandir la photo : Toujours entourée de tes amis"><img src="images/photo_2026-11-19_22-54-18.jpg" alt="Soxna Hawa entourée de ses amis" loading="lazy"><span class="photo-placeholder" aria-hidden="true"><span class="placeholder-inner"><span class="placeholder-icon">📸</span><strong>Toujours entourée de tes amis</strong><small>Photo indisponible</small></span></span><span class="photo-caption">Toujours entourée de tes amis</span></button>
+                    <button class="photo-card reveal" type="button" data-photo="images/photo_2026-11-19_22-54-21.jpg" data-caption="À de nouveaux souvenirs !" aria-label="Agrandir la photo : À de nouveaux souvenirs !"><img src="images/photo_2026-11-19_22-54-21.jpg" alt="À de nouveaux souvenirs avec Soxna Hawa" loading="lazy"><span class="photo-placeholder" aria-hidden="true"><span class="placeholder-inner"><span class="placeholder-icon">📸</span><strong>À de nouveaux souvenirs !</strong><small>Photo indisponible</small></span></span><span class="photo-caption">À de nouveaux souvenirs !</span></button>
+                </div>
+            </div>
+        </section>
+        <section class="section message-section" id="message" aria-labelledby="message-title">
+            <div class="section-inner">
+                <article class="message-card reveal">
+                    <p class="section-kicker">Quelques mots pour toi</p>
+                    <h2 id="message-title">Un message d’amitié</h2>
+                    <!-- Remplace le texte ci-dessous par ton message personnel. -->
+                    <p class="message-text">Ma chère Soxna Hawa, en ce jour si spécial, je te souhaite un merveilleux anniversaire et une année remplie de joie, de réussite et de beaux moments. Continue de rayonner et de rendre le monde plus beau autour de toi. Profite pleinement
+                        de tes 19 ans : tu mérites tout le bonheur du monde ! Et puisque tu es passionnée de BMW, je te souhaite une année qui roule à merveille, avec plein de beaux projets et d’aventures entre amis !</p>
+                    <p class="message-signoff">Avec toute mon amitié, Moussa</p>
+                </article>
+            </div>
+        </section>
+        <section class="section celebration-section" aria-labelledby="celebration-title">
+            <div class="section-inner reveal">
+                <header class="section-heading">
+                    <p class="section-kicker">Une journée spéciale</p>
+                    <h2 id="celebration-title">Place à la fête !</h2>
+                    <p>Une petite surprise préparée rien que pour toi.</p>
+                </header>
+                <button class="button button-primary" type="button" data-surprise>Déclencher la surprise 🎉</button>
+                <p class="surprise-note" id="surprise-note" aria-live="polite"></p>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>Fait avec amitié <span aria-hidden="true">💛</span> par Moussa</p>
+    </footer>
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie" inert>
+        <button class="lightbox-close" type="button" aria-label="Fermer la photo">×</button>
+        <figure><img id="lightbox-image" src="images/photo_2026-11-19_22-54-05.jpg" alt="">
+            <div class="lightbox-placeholder" id="lightbox-placeholder" aria-hidden="true">
+                <div><span>📸</span>
+                    <p>Ajoute cette photo dans le dossier images pour l’afficher ici.</p>
+                </div>
+            </div>
+            <figcaption id="lightbox-caption"></figcaption>
+        </figure>
+    </div>
+    <script>
+        // Date, textes, photos et animations sont regroupés ici pour faciliter les modifications.
+        const confettiCanvas = document.querySelector("#confetti-canvas");
+        const confettiContext = confettiCanvas.getContext("2d");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let confettiPieces = [];
+        let animationFrame = null;
+
+        // Confettis dans le hero ; le bouton surprise relance une pluie festive.
+        function resizeConfetti() {
+            const ratio = Math.min(window.devicePixelRatio || 1, 2);
+            confettiCanvas.width = Math.floor(confettiCanvas.clientWidth * ratio);
+            confettiCanvas.height = Math.floor(confettiCanvas.clientHeight * ratio);
+            confettiContext.setTransform(ratio, 0, 0, ratio, 0, 0);
+        }
+
+        function launchConfetti(amount = 75) {
+            const colors = ["#c94f70", "#e8b6a2", "#c49a52", "#f6dce1", "#fffdfb"];
+            const width = confettiCanvas.clientWidth,
+                height = confettiCanvas.clientHeight;
+            confettiPieces = Array.from({
+                length: amount
+            }, () => ({
+                x: Math.random() * width,
+                y: -Math.random() * height * .8,
+                size: 3 + Math.random() * 5,
+                speed: 1.2 + Math.random() * 2.4,
+                drift: (Math.random() - .5) * 1.5,
+                angle: Math.random() * Math.PI,
+                spin: (Math.random() - .5) * .12,
+                color: colors[Math.floor(Math.random() * colors.length)]
+            }));
+            if (!reduceMotion && !animationFrame) animateConfetti();
+            else if (reduceMotion) drawConfettiOnce();
+        }
+
+        function drawConfettiOnce() {
+            resizeConfetti();
+            confettiPieces.slice(0, 22).forEach((piece, index) => {
+                piece.x = (index / 22) * confettiCanvas.clientWidth;
+                piece.y = 25 + (index % 5) * 22;
+                confettiContext.fillStyle = piece.color;
+                confettiContext.fillRect(piece.x, piece.y, piece.size, piece.size * 1.7);
+            });
+        }
+
+        function animateConfetti() {
+            const width = confettiCanvas.clientWidth,
+                height = confettiCanvas.clientHeight;
+            confettiContext.clearRect(0, 0, width, height);
+            confettiPieces.forEach((piece) => {
+                piece.y += piece.speed;
+                piece.x += piece.drift;
+                piece.angle += piece.spin;
+                confettiContext.save();
+                confettiContext.translate(piece.x, piece.y);
+                confettiContext.rotate(piece.angle);
+                confettiContext.fillStyle = piece.color;
+                confettiContext.fillRect(-piece.size / 2, -piece.size / 2, piece.size, piece.size * 1.7);
+                confettiContext.restore();
+            });
+            confettiPieces = confettiPieces.filter((piece) => piece.y < height + 12);
+            if (confettiPieces.length) animationFrame = requestAnimationFrame(animateConfetti);
+            else animationFrame = null;
+        }
+        resizeConfetti();
+        launchConfetti(65);
+        window.addEventListener("resize", resizeConfetti);
+
+        // Les photos manquantes gardent une jolie carte guide ; dépose les tiennes dans images/.
+        document.querySelectorAll(".photo-card img").forEach((image) => {
+            image.addEventListener("error", () => image.closest(".photo-card").classList.add("is-empty"), {
+                once: true
+            });
+            image.addEventListener("load", () => image.closest(".photo-card").classList.remove("is-empty"));
+        });
+
+        // Agrandissement des photos avec fermeture au clic extérieur ou à la touche Échap.
+        const lightbox = document.querySelector("#lightbox"),
+            lightboxImage = document.querySelector("#lightbox-image");
+        const lightboxPlaceholder = document.querySelector("#lightbox-placeholder"),
+            lightboxCaption = document.querySelector("#lightbox-caption");
+        const closeLightboxButton = document.querySelector(".lightbox-close");
+        let lastFocusedElement = null;
+
+        function closeLightbox() {
+            lightbox.classList.remove("is-open");
+            lightbox.setAttribute("inert", "");
+            document.body.classList.remove("modal-open");
+            lightboxImage.removeAttribute("src");
+            if (lastFocusedElement) lastFocusedElement.focus();
+        }
+        document.querySelectorAll(".photo-card").forEach((card) => {
+            card.addEventListener("click", () => {
+                lastFocusedElement = card;
+                lightboxImage.alt = card.querySelector("img").alt;
+                lightboxCaption.textContent = card.dataset.caption;
+                lightboxPlaceholder.classList.remove("is-visible");
+                lightboxImage.style.display = "block";
+                lightboxImage.onerror = () => {
+                    lightboxImage.style.display = "none";
+                    lightboxPlaceholder.classList.add("is-visible");
+                };
+                lightboxImage.src = card.dataset.photo;
+                lightbox.classList.add("is-open");
+                lightbox.removeAttribute("inert");
+                document.body.classList.add("modal-open");
+                closeLightboxButton.focus();
+            });
+        });
+        closeLightboxButton.addEventListener("click", closeLightbox);
+        lightbox.addEventListener("click", (event) => {
+            if (event.target === lightbox) closeLightbox();
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && lightbox.classList.contains("is-open")) closeLightbox();
+        });
+
+        // Surprise amicale : petite pluie de ballons et d’étoiles, en plus des confettis.
+        const surpriseNote = document.querySelector("#surprise-note");
+        document.querySelectorAll("[data-surprise]").forEach((button) => {
+            button.addEventListener("click", () => {
+                launchConfetti(125);
+                ["🎈", "✨", "🎉", "🌟", "🎈", "🥳"].forEach((decoration, index) => {
+                    const item = document.createElement("span");
+                    item.className = "floating-celebration";
+                    item.textContent = decoration;
+                    item.style.left = `${8 + Math.random() * 84}%`;
+                    item.style.animationDelay = `${index * .16}s`;
+                    item.style.fontSize = `${1.5 + Math.random() * 1.2}rem`;
+                    document.body.append(item);
+                    item.addEventListener("animationend", () => item.remove(), {
+                        once: true
+                    });
+                });
+                surpriseNote.textContent = "Une pluie d’amitié rien que pour toi, Soxna ! 🎉";
+            });
+        });
+
+        // Apparition douce au défilement, avec affichage immédiat si les animations sont réduites.
+        const revealItems = document.querySelectorAll(".reveal");
+        if (reduceMotion || !("IntersectionObserver" in window)) revealItems.forEach((item) => item.classList.add("is-visible"));
+        else {
+            const observer = new IntersectionObserver((entries, currentObserver) => entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    currentObserver.unobserve(entry.target);
+                }
+            }), {
+                threshold: .12
+            });
+            revealItems.forEach((item) => observer.observe(item));
+        }
+    </script>
+</body>
+
+</html>
